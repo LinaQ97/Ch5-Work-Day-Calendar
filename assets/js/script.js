@@ -3,26 +3,31 @@
 // in the html.
 $(function () {
   var currentDayEl = $("#currentDay")
-  var currentDayTime=dayjs().format("dddd, MMMM, D ")
+  var currentDayTime = dayjs().format("dddd, MMMM, D ")
+  var saveBtn = $(".saveBtn")
   console.log(currentDayTime)
 
-currentDayEl.text(currentDayTime)
+  currentDayEl.text(currentDayTime)
 
-// this var below gets the current hour(in military time).
+  // this var below gets the current hour(in military time).
   var currentHour = dayjs().hour()
 
   console.log(currentHour)
-// create for loop to get time block ids starting from 9AM. 2. compare the i with current hour
+  // create for loop to get time block ids starting from 9AM. 2. compare the i with current hour
   for (let i = 9; i < 18; i++) {
     // the statement below is targeting the "past".
-    var timeBlock=$("#hour-"+i)
-    if(i===currentHour){
-timeBlock.addClass("present")
+    var event = localStorage.getItem("hour-" + i)
+    // timeBlock.children(textArea.val())
+
+    console.log(event)
+    var timeBlock = $("#hour-" + i)
+    if (i === currentHour) {
+      timeBlock.addClass("present")
     }
-    else if(currentHour>i){
+    else if (currentHour > i) {
       timeBlock.addClass("past")
     }
-    else{
+    else {
       timeBlock.addClass("future")
     }
 
@@ -45,4 +50,19 @@ timeBlock.addClass("present")
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+  function saveEvent(event) {
+    var currentButton = $(event.target)
+    var textArea = currentButton.siblings("textArea")
+    var parentId = currentButton.parent().attr("id")
+
+    alert(textArea.val() + " " + parentId)
+
+    localStorage.setItem(parentId, textArea.val())
+
+
+  }
+
+
+  saveBtn.on("click", saveEvent)
+
 });
