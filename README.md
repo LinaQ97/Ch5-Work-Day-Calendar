@@ -12,8 +12,7 @@ assets/image:
 
 ## Credits
 
-N/A
-
+N/A.
 
 ## License
 
